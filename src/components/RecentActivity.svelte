@@ -1,7 +1,7 @@
 <script>
   import RecentCard from "./RecentCard.svelte";
-  // export let name;
-  // import StoryCard from "./StoryCard.svelte";
+  export let recent = [];
+  console.log("recent rb", recent);
 </script>
 
 <div class="my-10 text-xl font-bold">
@@ -9,11 +9,15 @@
 </div>
 
 <div class="flex flex-col gap-5">
-  <RecentCard />
-  <RecentCard />
-  <RecentCard />
-  <RecentCard />
-  <RecentCard />
+  {#each recent as item}
+    <RecentCard
+      username={item.username}
+      date={item.date}
+      title={item.title}
+      distance={item.distance}
+      avatar={item.avatar}
+    />
+  {/each}
 </div>
 
 <style lang="postcss" global>

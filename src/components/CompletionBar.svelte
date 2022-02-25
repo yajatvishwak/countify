@@ -1,15 +1,15 @@
 <script>
-  // export let name;
-  // import StoryCard from "./StoryCard.svelte";
+  export let total = 0;
+  export let covered = 0;
 </script>
 
 <div class="text-2xl">
   <div class="p-6 ">
     <div class="flex justify-between items-center">
-      <div>0km</div>
-      <div>100km</div>
+      <div>{covered}km</div>
+      <div>{total}km</div>
     </div>
-    <progress class="progress" value="45" max="100">45%</progress>
+    <progress class="progress" value={covered} max={total}>45%</progress>
   </div>
 </div>
 

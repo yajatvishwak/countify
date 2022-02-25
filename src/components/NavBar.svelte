@@ -1,6 +1,10 @@
 <script>
+  import { avatarURL, username } from "../session";
+
   // export let name;
+  const supabaseStorageUrl = __api.env.SVELTE_APP_SUPABASE_STORAGE_URL;
   // import StoryCard from "./StoryCard.svelte";
+  //console.log($avatarURL);
 </script>
 
 <div class="flex items-center justify-between">
@@ -8,15 +12,13 @@
     on:click={() => (window.location.href = "/")}
     class="text-3xl font-bold text-primary cursor-pointer"
   >
-    Countify
+    {$username}
   </div>
 
   <div class="dropdown dropdown-end">
     <label tabindex="0" class="avatar hover:scale-75 transition-all">
       <div class="rounded-full w-14 h-14">
-        <img
-          src="http://daisyui.com/tailwind-css-component-profile-1@94w.png"
-        />
+        <img src={supabaseStorageUrl + "/" + $avatarURL} />
       </div>
     </label>
     <ul
@@ -24,7 +26,7 @@
       class="p-2 shadow menu dropdown-content bg-base-100 rounded-box w-52"
     >
       <li><a href="/#/add">Contribute</a></li>
-      <li><a herf="/#/profile">Profile</a></li>
+      <li><a href="/#/profile">Profile</a></li>
     </ul>
   </div>
 </div>
