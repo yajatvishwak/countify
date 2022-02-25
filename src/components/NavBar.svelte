@@ -12,7 +12,7 @@
     on:click={() => (window.location.href = "/")}
     class="text-3xl font-bold text-primary cursor-pointer"
   >
-    {$username}
+    Countify
   </div>
 
   <div class="dropdown dropdown-end">

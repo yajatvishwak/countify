@@ -99,7 +99,7 @@
     <button type="submit" class="btn -mt-2 mr-auto">Save</button>
   </form>
   <Heading>Your Contributions</Heading>
-  <div>
+  <div class="flex flex-col gap-3">
     {#each contributions as item}
       <YourContributionCard
         username={item.username}
@@ -107,6 +107,7 @@
         title={item.title}
         distance={item.distance}
         avatar={item.avatar}
+        rid={item.rid}
       />
     {/each}
   </div>

@@ -2,6 +2,8 @@
   export let type = -1;
   export let name = "";
   export let kms = "";
+  const supabaseStorageUrl = __api.env.SVELTE_APP_SUPABASE_STORAGE_URL;
+
   export let img = "";
 </script>
 
@@ -27,7 +29,7 @@
   >
     <div class="avatar mt-5">
       <div class="w-24 rounded-full">
-        <img class="rounded-full" src={img} />
+        <img src={supabaseStorageUrl + "/" + img} />
       </div>
     </div>
     <div class="text-center flex flex-col items-center gap-2 my-5 ">

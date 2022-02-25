@@ -26,14 +26,14 @@
   function plus() {
     dist = (parseFloat(dist) + 0.1).toFixed(1);
     selectedMessage = getRandomNumberBetween(1, message.length - 1);
-    console.log(typeof dist);
+    //console.log(typeof dist);
   }
   function minus() {
     if (dist > 0) {
       dist = (parseFloat(dist) - 0.1).toFixed(1);
     }
 
-    console.log(typeof dist);
+    //console.log(typeof dist);
   }
   function getRandomNumberBetween(min, max) {
     return Math.floor(Math.random() * (max - min + 1) + min);

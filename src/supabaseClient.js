@@ -110,7 +110,7 @@ export async function getYourContribution() {
 
   let { data, error } = await supabase
     .from("records")
-    .select("distance, profile(username, avatar_url) , created_at , title")
+    .select("distance, profile(username, avatar_url) , created_at ,rid, title")
     .eq("uid", userid)
     .order("created_at", { ascending: false });
 
@@ -118,6 +118,7 @@ export async function getYourContribution() {
   console.log("ye vala", data);
   const returnData = data.map((item) => {
     return {
+      rid: item.rid,
       distance: item.distance,
       date: new Date(item.created_at),
       avatar: item.profile.avatar_url,
@@ -126,4 +127,80 @@ export async function getYourContribution() {
     };
   });
   return returnData;
+}
+
+export async function deleteContribution(rid) {
+  console.log("bro called", rid);
+  let { data, error } = await supabase
+    .from("records")
+    .select("distance")
+    .eq("rid", rid)
+    .single();
+  let covered = await getGoal();
+  console.log(covered, data.distance);
+  let newCovered = parseFloat(covered) - parseFloat(data.distance);
+  console.log(newCovered);
+  await supabase
+    .from("goals")
+    .update({ covered: newCovered })
+    .match({ gid: 1 });
+
+  await supabase.from("records").delete().match({ rid: rid });
+}
+
+async function getGoal() {
+  let { data, error } = await supabase.from("goals").select("covered").single();
+  if (error) throw error;
+  console.log(data);
+  return data.covered;
+}
+
+export async function getContributorsList() {
+  let { data, error } = await supabase
+    .from("records")
+    .select("profile(avatar_url, username) , distance");
+  console.log(data);
+  let allUsers = [];
+  allUsers = data.map((item) => {
+    return item.profile.username;
+  });
+  allUsers = [...new Set(allUsers)];
+  //console.log(allUsers);
+  let returnArr = [];
+  allUsers.forEach((element) => {
+    let total = 0;
+    let avatar = "";
+    data.forEach((element2) => {
+      if (element2.profile.username === element) {
+        total += parseFloat(element2.distance);
+        avatar = element2.profile.avatar_url;
+      }
+    });
+    console.log(total);
+    returnArr.push({
+      username: element,
+      totalDistance: total.toFixed(2),
+      avatar: avatar,
+    });
+  });
+  console.log(returnArr);
+  returnArr.sort((a, b) =>
+    a.totalDistance < b.totalDistance
+      ? 1
+      : b.totalDistance < a.totalDistance
+      ? -1
+      : 0
+  );
+  return returnArr;
+
+  //   let covered = await getGoal();
+  //   console.log(covered, data.distance);
+  //   let newCovered = parseFloat(covered) - parseFloat(data.distance);
+  //   console.log(newCovered);
+  //   await supabase
+  //     .from("goals")
+  //     .update({ covered: newCovered })
+  //     .match({ gid: 1 });
+
+  //   await supabase.from("records").delete().match({ rid: rid });
 }

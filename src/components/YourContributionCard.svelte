@@ -1,9 +1,13 @@
 <script>
+  import { deleteContribution } from "../supabaseClient";
+
   export let username = "";
   export let date = "";
   export let title = "";
   export let distance = "";
+  export let rid = "";
   export let avatar = "";
+  let checked = false;
   const supabaseStorageUrl = __api.env.SVELTE_APP_SUPABASE_STORAGE_URL;
 
   let dd = String(date.getDate()).padStart(2, "0");
@@ -11,6 +15,24 @@
   let yyyy = date.getFullYear();
   let ddate = mm + "/" + dd + "/" + yyyy;
 </script>
+
+<input type="checkbox" {checked} id="my-modal1" class="modal-toggle" />
+<div class="modal">
+  <div class="modal-box">
+    <h3 class="font-bold text-lg">Run Record Deleted!</h3>
+    <p class="py-4">
+      If you have done this by mistake, No worries, Add the same contribution
+      back in the contribute section
+    </p>
+    <div class="modal-action">
+      <label
+        on:click={() => window.location.reload()}
+        for="my-modal1"
+        class="btn">Coooool</label
+      >
+    </div>
+  </div>
+</div>
 
 <div
   class="p-10 bg-gray-100 rounded-xl gap-4 flex flex-col md:flex-row justify-center md:justify-start items-center"
@@ -32,7 +54,14 @@
     class="md:ml-auto text-4xl text-green-500 font-bold flex items-center gap-5"
   >
     <div>{distance} Km</div>
-    <div class="text-black hover:text-red-500 transition-all">
+    <div
+      on:click={() => {
+        if (deleteContribution(rid)) {
+          checked = true;
+        }
+      }}
+      class="text-black hover:text-red-500 transition-all"
+    >
       <svg
         xmlns="http://www.w3.org/2000/svg"
         class="h-6 w-6"

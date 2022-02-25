@@ -1,39 +1,62 @@
 <script>
-    import { supabase } from "../supabaseClient";
+  import { onMount } from "svelte";
 
-    let email = "";
-    async function login() {
-        const { user, error } = await supabase.auth.signIn({
-            email: email,
-        });
-        console.log(user);
-    }
+  import { supabase } from "../supabaseClient";
+
+  let email = "";
+  let checked = false;
+  onMount(() => {
+    const user = supabase.auth.user();
+    if (user !== null) window.location.href = "/#/home";
+  });
+  async function login() {
+    const { user, error } = await supabase.auth.signIn({
+      email: email,
+    });
+
+    checked = true;
+    console.log(user);
+  }
 </script>
 
-<section class="h-screen w-screen bg-zinc-50 grid lg:grid-cols-5">
-    <div class="col-span-2 lg:bg-white p-10 pt-20 h-full flex flex-col">
-        <div class="text-3xl font-bold text-primary">Countify</div>
-        <div class="text-xl font-bold max-w-sm mt-4">
-            Reach Monthly Distance Goals Together
-        </div>
-        <div class="mt-auto">
-            <div class="form-control">
-                <label class="label">
-                    <span class="label-text">Email</span>
-                </label>
-                <input
-                    bind:value={email}
-                    type="text"
-                    placeholder="superawesome@temp.com"
-                    class="input input-bordered rounded-lg"
-                />
-
-                <button
-                    on:click={login}
-                    class="btn btn-primary  mt-5 rounded-lg"
-                    >Take me to my dashboard</button
-                >
-            </div>
-        </div>
+<input type="checkbox" {checked} id="my-modal11" class="modal-toggle" />
+<div class="modal">
+  <div class="modal-box">
+    <h3 class="font-bold text-lg">Authentication Email Sent</h3>
+    <p class="py-4">
+      Please follow the instructions in your email to login/signup. Thank you!
+    </p>
+    <div class="modal-action">
+      <label
+        on:click={() => window.location.reload()}
+        for="my-modal11"
+        class="btn">Coooool</label
+      >
     </div>
+  </div>
+</div>
+<section class="h-screen w-screen bg-zinc-200 grid lg:grid-cols-5">
+  <div class="col-span-2 lg:bg-white p-10 pt-20 h-full flex flex-col">
+    <div class="text-3xl font-bold text-primary">Countify</div>
+    <div class="text-xl font-bold max-w-sm mt-4">
+      Reach Monthly Distance Goals Together
+    </div>
+    <div class="mt-auto">
+      <div class="form-control">
+        <label class="label">
+          <span class="label-text">Email</span>
+        </label>
+        <input
+          bind:value={email}
+          type="text"
+          placeholder="superawesome@temp.com"
+          class="input input-bordered rounded-lg"
+        />
+
+        <button on:click={login} class="btn btn-primary  mt-5 rounded-lg"
+          >Take me to my dashboard</button
+        >
+      </div>
+    </div>
+  </div>
 </section>
