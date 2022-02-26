@@ -3,7 +3,7 @@
   import routes from "./router";
 </script>
 
-<section class="h-full w-screen ">
+<section class="h-full w-screen text-black">
   <Router {routes} />
 </section>
 
