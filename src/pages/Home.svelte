@@ -12,7 +12,7 @@
   import { username } from "../session";
   //console.log($username);
 
-  import { getHomePage } from "../supabaseClient";
+  import { getHomePage, supabase } from "../supabaseClient";
   import { onMount } from "svelte";
   let data = null;
   let loading = true;
