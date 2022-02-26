@@ -9,12 +9,15 @@
     const user = supabase.auth.user();
     if (user !== null) window.location.href = "/#/home";
   });
+  let loading = false;
   async function login() {
+    loading = true;
     const { user, error } = await supabase.auth.signIn({
       email: email,
     });
 
     checked = true;
+    loading = false;
     console.log(user);
   }
 </script>
@@ -52,10 +55,16 @@
           placeholder="superawesome@temp.com"
           class="input input-bordered rounded-lg"
         />
-
-        <button on:click={login} class="btn btn-primary  mt-5 rounded-lg"
-          >Take me to my dashboard</button
-        >
+        {#if loading}
+          <div class="text-center">loading</div>
+        {:else}
+          <button
+            disabled={loading}
+            on:click={login}
+            class="btn btn-primary  mt-5 rounded-lg"
+            >Take me to my dashboard</button
+          >
+        {/if}
       </div>
     </div>
   </div>

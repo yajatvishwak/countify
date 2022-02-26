@@ -5,9 +5,10 @@
   import { addContribution, supabase } from "../supabaseClient";
   let message = [
     "how much track did you cover today?",
-    "wppwpa",
-    "wowowowowowoowow",
-    "im jealous of you",
+    "Great work!",
+    "Awesome!",
+    "Wow!",
+    "Next Usain Bolt!",
   ];
   let timebro = "";
   if (greetingTime(new Date()) === "Good afternoon") {
@@ -128,7 +129,7 @@
     </div>
   </div>
   <div class="flex items-center gap-10 mt-10 ml-auto">
-    <div class="text-center text-white">{message[selectedMessage]}</div>
+    <div class="text-center ">{message[selectedMessage]}</div>
     <div on:click={contribute} class="btn ">contribute!</div>
   </div>
 </form>

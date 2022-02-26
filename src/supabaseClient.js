@@ -146,6 +146,41 @@ export async function deleteContribution(rid) {
     .match({ gid: 1 });
 
   await supabase.from("records").delete().match({ rid: rid });
+  await removeContributor();
+}
+export async function removeContributor() {
+  console.log("removedddd");
+  let userid = supabase.auth.user().id;
+  let { data, error } = await supabase
+    .from("records")
+    .select("distance")
+    .eq("uid", userid);
+  console.log(data);
+
+  if (data.length === 0 || data === null) {
+    ridContributor(userid);
+  }
+}
+export async function ridContributor(user) {
+  console.log("removedddd3");
+  let { data, error } = await supabase
+    .from("goals")
+    .select(`contributors`)
+    .eq("gid", 1)
+    .single();
+  if (error) throw error;
+
+  let newContri = data.contributors.filter((item) => {
+    if (item !== user) {
+      return item;
+    }
+  });
+  console.log(newContri);
+
+  await supabase
+    .from("goals")
+    .update({ contributors: newContri })
+    .match({ gid: 1 });
 }
 
 async function getGoal() {
