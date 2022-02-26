@@ -65,9 +65,9 @@
   </div>
 </div>
 
-<form class="flex justify-center items-center flex-col gap-10">
+<form class="flex justify-center items-center flex-col gap-10 text-black">
   <div class="w-full">
-    <label for="">Title Your Run</label>
+    <label class="text-white" for="">Title Your Run</label>
     <input
       type="text"
       class="w-full p-4 border mt-2 rounded-lg"
@@ -128,7 +128,7 @@
     </div>
   </div>
   <div class="flex items-center gap-10 mt-10 ml-auto">
-    <div class="text-center">{message[selectedMessage]}</div>
+    <div class="text-center text-white">{message[selectedMessage]}</div>
     <div on:click={contribute} class="btn ">contribute!</div>
   </div>
 </form>

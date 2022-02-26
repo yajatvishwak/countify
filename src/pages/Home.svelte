@@ -17,6 +17,10 @@
   let data = null;
   let loading = true;
   onMount(async () => {
+    const user = supabase.auth.user();
+    if (user === null) {
+      window.location.href = "/#/auth";
+    }
     data = await getHomePage();
     loading = false;
     //console.log(data);

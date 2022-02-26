@@ -9,7 +9,7 @@
 
 <div class="flex items-center justify-between">
   <div
-    on:click={() => (window.location.href = "/")}
+    on:click={() => (window.location.href = "/#/home")}
     class="text-3xl font-bold text-primary cursor-pointer"
   >
     Countify
