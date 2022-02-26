@@ -53,10 +53,10 @@
           bind:value={email}
           type="text"
           placeholder="superawesome@temp.com"
-          class="input input-bordered rounded-lg"
+          class="input input-bordered rounded-lg bg-white text-black"
         />
         {#if loading}
-          <div class="text-center">loading</div>
+          <div class="text-center">Loading...</div>
         {:else}
           <button
             disabled={loading}

@@ -1,6 +1,8 @@
 <script>
   let dist = 0.0;
   import { push } from "svelte-spa-router";
+  import JSConfetti from "js-confetti";
+  const jsConfetti = new JSConfetti();
   import greetingTime from "greeting-time";
   import { addContribution, supabase } from "../supabaseClient";
   let message = [
@@ -44,6 +46,7 @@
     const user = supabase.auth.user();
     if (await addContribution(user.id, dist, title)) {
       isModalOpen = true;
+      jsConfetti.addConfetti();
     }
   }
 </script>

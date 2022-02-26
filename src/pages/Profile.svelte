@@ -4,6 +4,7 @@
   import BoundingBox from "../components/BoundingBox.svelte";
   import YourContributionCard from "../components/YourContributionCard.svelte";
   import { username, avatarURL } from "../session";
+
   import {
     getYourContribution,
     modifyProfile,
@@ -13,6 +14,7 @@
   import { nanoid } from "nanoid";
   import { onMount } from "svelte";
   let contributions = [];
+  let loading = false;
   onMount(async () => {
     contributions = await getYourContribution();
     console.log(contributions);
@@ -36,6 +38,7 @@
   }
 
   async function saveChanges() {
+    loading = true;
     let imageURL = "";
     if (timage !== null) {
       const { data, error } = await supabase.storage
@@ -60,6 +63,7 @@
       update["avatar_url"] = imageURL;
     }
     modifyProfile(update);
+    loading = false;
   }
 </script>
 
@@ -70,7 +74,7 @@
     on:submit|preventDefault={saveChanges}
     class="flex flex-col justify-center items-center gap-10"
   >
-    <div class="">
+    <div class="rounded-full border">
       <img src={previewImage} class="rounded-full h-52 w-52" alt="" />
     </div>
     <div>
@@ -96,7 +100,9 @@
         class="w-full mt-1 p-4 rounded-lg border"
       />
     </div>
-    <button type="submit" class="btn -mt-2 mr-auto">Save</button>
+    <button type="submit" disabled={loading} class="btn -mt-2 mr-auto"
+      >{loading ? "Loading..." : "Save"}</button
+    >
   </form>
   <Heading>Your Contributions</Heading>
   <div class="flex flex-col gap-3">

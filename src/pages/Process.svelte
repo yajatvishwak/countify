@@ -31,7 +31,7 @@
       const updates = {
         uid: user.id,
         username,
-        avatar_url: "pfp/public/bro.jpg",
+        avatar_url: "pfp/public/bro.png",
       };
 
       let { error } = await supabase.from("profile").upsert(updates, {
@@ -47,8 +47,28 @@
   }
 </script>
 
-<form on:submit|preventDefault={updateProfile}>
-  <input type="text" bind:value={username} placeholder="username" />
-  <input type="file" />
-  <button type="submit">submit</button>
+<form
+  class=" w-full h-screen p-4 grid items-center"
+  on:submit|preventDefault={updateProfile}
+>
+  <div class="flex justify-center items-center flex-col gap-5 w-full">
+    <label for="" class="text-5xl text-indigo-500 font-bold">Countify</label>
+    <label for="" class="text-3xl">Welcome aboard! 👋</label>
+    <div class="flex flex-col gap-3">
+      <input
+        required
+        type="text"
+        bind:value={username}
+        placeholder="username"
+        class="p-4 border rounded w-full"
+      />
+      <label
+        for="file"
+        class="text-center p-5 rounded-lg border hover:bg-indigo-400 transition-all"
+        >Upload a Picture!</label
+      >
+      <input type="file" id="file" hidden />
+    </div>
+    <button class="btn" type="submit">Let's goooooooooo</button>
+  </div>
 </form>
