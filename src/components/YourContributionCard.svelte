@@ -35,7 +35,7 @@
 </div>
 
 <div
-  class="p-10 bg-gray-100 rounded-xl gap-4 flex flex-col md:flex-row justify-center md:justify-start items-center"
+  class="p-10 text-black bg-gray-100 rounded-xl gap-4 flex flex-col md:flex-row justify-center md:justify-start items-center"
 >
   <div class="avatar">
     <div class=" rounded-full w-14 h-14">

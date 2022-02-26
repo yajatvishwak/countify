@@ -25,7 +25,7 @@
   {/if}
 
   <div
-    class="shadow-xl border bg-white rounded-xl flex justify-center items-center p-4 gap-5 flex-col"
+    class="shadow-xl text-black border bg-white rounded-xl flex justify-center items-center p-4 gap-5 flex-col"
   >
     <div class="avatar mt-5">
       <div class="w-24 rounded-full">
